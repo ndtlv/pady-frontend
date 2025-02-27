@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 
 import { Button, Label, Dropdown, DropdownItem, Tabs, TabItem, TextInput, Checkbox, Radio, Table, Spinner } from "flowbite-react"
-import { radioTheme, tabTheme, checkboxTheme, inputTheme, dropdownTheme } from "./themes"
+import { radioTheme, tabTheme, checkboxTheme, inputTheme, dropdownTheme, tableTheme } from "./themes"
 import { changeKey, addListItem, removeListItem, exportAsExcel } from '@/app/utils/dataProcessing'
 import { fetchData } from '@/app/utils/requestsHandling'
 
@@ -43,6 +43,7 @@ export default function SearchPage() {
   const handleSearch = async () => {
     try {
       setLoading(true)
+      setResults([])
 
       const projects = allProjects ? existingProjects : selectedProjects
       setView(projects)
@@ -86,16 +87,18 @@ export default function SearchPage() {
           <Label htmlFor="projects-all">All projects</Label>
         </div>
         <div className="flex items-center gap-3">
-          <Radio theme={radioTheme} id="projects-selected" name="projects" checked={!allProjects} onChange={(event) => setAllProjects(!event.target.checked)}/>              
+          <Radio theme={radioTheme} id="projects-selected" name="projects" checked={!allProjects} onChange={(event) => setAllProjects(!event.target.checked)}/> 
+          <Label htmlFor="projects-selected">Pick one or more projects from the list:</Label>             
           <Dropdown theme={dropdownTheme}
-            label={selectedProjects.length > 0 ? selectedProjects.join(", ") : "Pick one or more projects"} dismissOnClick={false} className='max-h-64 overflow-y-auto' disabled={allProjects}>
+            label={selectedProjects.length > 0 ? selectedProjects.join(", ") : "Available projects..."} dismissOnClick={false} className={`max-h-64 grow overflow-y-auto`} disabled={allProjects} placement="left-start"
+            >
               {
                 existingProjects.sort().map(project_option => {
                   return(
                     <DropdownItem id={project_option} label={project_option}> 
                       <div className="flex items-center gap-3">
                         <Checkbox theme={checkboxTheme} id={project_option} checked={selectedProjects.includes(project_option)}
-                          onChange={(event) => event.target.checked ? addListItem(setSelectedProjects, event.target.id) : removeListItem(setSelectedProjects, event.target.id)}/>
+                          onChange={(event) => event.target.checked ? addListItem(setSelectedProjects, event.target.id) : removeListItem(setSelectedProjects, ievent.target.d)}/>
                         <Label htmlFor="case-sensitive">{project_option}</Label>
                       </div>
                     </DropdownItem>
@@ -177,8 +180,8 @@ export default function SearchPage() {
                       words
                     </div>
                   </div>
-                  <Dropdown theme={dropdownTheme} 
-                        label={words["secondWordOperand"]} dismissOnClick={true}>
+                  <Dropdown theme={dropdownTheme}
+                        label={words["secondWordOperand"]} dismissOnClick={true}> 
                           {
                             wordConnectors.sort().map(operandOption => {
                               return(
@@ -346,16 +349,16 @@ export default function SearchPage() {
                       <div className="h-16 flex items-center px-6 gap-1 text-black text-md">
                         <span className='font-bold'> Project: </span> {project[0]}
                       </div>
-                      <Table striped={true}>
+                      <Table striped={true} theme={tableTheme}>
                         <Table.Head>
                           {headers.map((header) => (
-                            <Table.HeadCell key={header}>{header}</Table.HeadCell>
+                            <Table.HeadCell colSpan={header == "Fragments" ? 4 : 1} key={header}>{header}</Table.HeadCell>
                           ))}
                         </Table.Head>
                         <Table.Body>
                           {Object.values(project.slice(1)).map((row, rowIndex) => (
                             <Table.Row key={rowIndex}>
-                              {Object.values(row.split(",")).map((value, colIndex) => (
+                              {Object.values(row).map((value, colIndex) => (
                                 <Table.Cell key={colIndex}>{value}</Table.Cell>
                               ))}
                             </Table.Row>
