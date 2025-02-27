@@ -20,7 +20,7 @@ export function listToDict (dataList) {
   const data = dataList.slice(1) // remove project name
 
   data.map(value => {
-    const [ad, label, fragments] = value.split(",")
+    const [ad, label, fragments] = value
 
     result.push(
       {
