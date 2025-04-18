@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { Button, Label, Dropdown, DropdownItem, Tabs, TabItem, TextInput, Checkbox, Radio, Table, Spinner } from "flowbite-react"
 import { radioTheme, tabTheme, checkboxTheme, inputTheme, dropdownTheme, tableTheme } from "./themes"
-import { changeKey, addListItem, removeListItem, exportAsExcel } from '@/app/utils/dataProcessing'
+import { changeKey, addListItem, removeListItem, exportAsExcel, exportAsCSV } from '@/app/utils/dataProcessing'
 import { fetchData } from '@/app/utils/requestsHandling'
 
 
@@ -98,7 +98,7 @@ export default function SearchPage() {
                     <DropdownItem id={project_option} label={project_option}> 
                       <div className="flex items-center gap-3">
                         <Checkbox theme={checkboxTheme} id={project_option} checked={selectedProjects.includes(project_option)}
-                          onChange={(event) => event.target.checked ? addListItem(setSelectedProjects, event.target.id) : removeListItem(setSelectedProjects, ievent.target.d)}/>
+                          onChange={(event) => event.target.checked ? addListItem(setSelectedProjects, event.target.id) : removeListItem(setSelectedProjects, event.target.d)}/>
                         <Label htmlFor="case-sensitive">{project_option}</Label>
                       </div>
                     </DropdownItem>
@@ -274,7 +274,8 @@ export default function SearchPage() {
             <div className="font-bold text-dark-green self-start">
               RESULTS
             </div>
-            <div onClick={() => results && results.length > 0 ? exportAsExcel(results) : null} className="h-4 w-4 hover:h-5 hover:w-5 bg-no-repeat bg-cover bg-[url('../public/excel.png')]"></div>
+            <div onClick={() => results && results.length > 0 ? exportAsExcel(results) : null} className="h-6 w-6 hover:h-7 hover:w-7 bg-no-repeat bg-cover bg-[url('../public/xlsx.png')]"></div>
+            <div onClick={() => results && results.length > 0 ? exportAsCSV(results) : null} className="h-6 w-6 hover:h-7 hover:w-7 bg-no-repeat bg-cover bg-[url('../public/csv.png')]"></div>
           </div>
           <div className="flex flex-row gap-3 justify-between items-center w-full">
             <span className="h-10 w-1"></span>
