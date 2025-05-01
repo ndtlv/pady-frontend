@@ -1,12 +1,39 @@
+# PADY (frontend)
+
+## Introduction
+
+This project provides a User Interface for a [PADY application](https://github.com/fcalabrese/Pady) by [fcalabrese](https://github.com/fcalabrese) - a service created to elevate user experience when working with digital copies of ancient cuneiform texts.
+
+The User Interface enables users to perform lexical search within the available Akkadian texts, effectively display the 
+resulting data enhanced by advanced algorythms within the PADY backend, as well as download the results in various accessible formats.
+
+## Specifications
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Preconditions
+## Running in Docker
+
+### First, build the image with:
+
+```bash
+docker build -t pady-frontend .
+```
+
+### Launch the container with the following command:
+
+```bash
+docker run -p 3000:3000 pady-frontend
+```
+
+## Running locally
+
+### Preconditions
 
 To use default environment, rename .env.example => .env.local 
 
 Additionally, run "npm install" to install dependencies
 
-## Getting Started
+### Getting Started
 
 First, run the development server:
 

@@ -95,7 +95,7 @@ export default function SearchPage() {
               {
                 existingProjects.sort().map(project_option => {
                   return(
-                    <DropdownItem id={project_option} label={project_option}> 
+                    <DropdownItem key={project_option} id={project_option} label={project_option}> 
                       <div className="flex items-center gap-3">
                         <Checkbox theme={checkboxTheme} id={project_option} checked={selectedProjects.includes(project_option)}
                           onChange={(event) => event.target.checked ? addListItem(setSelectedProjects, event.target.id) : removeListItem(setSelectedProjects, event.target.d)}/>
@@ -185,7 +185,7 @@ export default function SearchPage() {
                           {
                             wordConnectors.sort().map(operandOption => {
                               return(
-                                <DropdownItem id={operandOption} label={operandOption} onClick={() => changeKey(setWords, "secondWordOperand", operandOption)}> {operandOption}
+                                <DropdownItem key={operandOption} id={operandOption} label={operandOption} onClick={() => changeKey(setWords, "secondWordOperand", operandOption)}> {operandOption}
                                 </DropdownItem>
                               )
                             })
@@ -199,7 +199,7 @@ export default function SearchPage() {
                           {
                             wordProximity.sort().map(operandOption => {
                               return(
-                                <DropdownItem id={operandOption} label={operandOption}> {operandOption}
+                                <DropdownItem key={operandOption} id={operandOption} label={operandOption}> {operandOption}
                                 </DropdownItem>
                               )
                             })
@@ -259,7 +259,7 @@ export default function SearchPage() {
             {
               resultProjects.sort().map(project => {
                 return(
-                  <div className="flex items-center gap-3">
+                  <div key={project} className="flex items-center gap-3">
                     <Checkbox theme={checkboxTheme} id={project} checked={viewSelection.includes(project)} onChange={(event) => event.target.checked ? addListItem(setView, project) : removeListItem(setView, project)}/>
                     <Label htmlFor="case-sensitive">{project}</Label>
                   </div>
@@ -286,7 +286,7 @@ export default function SearchPage() {
                     {
                       sorting.sort().map(option => {
                         return(
-                          <DropdownItem id={option} label={option}> {option}
+                          <DropdownItem key={option} id={option} label={option}> {option}
                           </DropdownItem>
                         )
                       })
@@ -301,7 +301,7 @@ export default function SearchPage() {
                     {
                       sorting.sort().map(option => {
                         return(
-                          <DropdownItem id={option} label={option}> {option}
+                          <DropdownItem key={option} id={option} label={option}> {option}
                           </DropdownItem>
                         )
                       })
@@ -316,7 +316,7 @@ export default function SearchPage() {
                     {
                       sorting.sort().map(option => {
                         return(
-                          <DropdownItem id={option} label={option}> {option}
+                          <DropdownItem key={option} id={option} label={option}> {option}
                           </DropdownItem>
                         )
                       })
@@ -331,7 +331,7 @@ export default function SearchPage() {
                     {
                       languages.sort().map(option => {
                         return(
-                          <DropdownItem id={option} label={option}> {option}
+                          <DropdownItem key={option} id={option} label={option}> {option}
                           </DropdownItem>
                         )
                       })
@@ -346,7 +346,7 @@ export default function SearchPage() {
                 results && results.length > 0 ? Object.values(results).map(project => {
                   if (viewSelection.includes(project[0])) {
                   return(
-                    <div className='flex flex-col border rounded-md gap-1'>
+                    <div key={project} className='flex flex-col border rounded-md gap-1'>
                       <div className="h-16 flex items-center px-6 gap-1 text-black text-md">
                         <span className='font-bold'> Project: </span> {project[0]}
                       </div>

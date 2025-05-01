@@ -1,4 +1,3 @@
-import { preconnect } from 'react-dom'
 import * as XLSX from 'xlsx'
 
 export const addListItem = (setter, newItem) => {
