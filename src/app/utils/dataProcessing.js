@@ -34,8 +34,25 @@ export function listToDict (dataList) {
   return result
 }
 
+export function listToCSV (dataList) {
+  let result = []
+
+  const project = dataList[0] // save project name for csv
+  const data = dataList.slice(1) // remove project name
+
+  data.map(value => {
+    const [ad, label, fragments] = value
+
+    result.push(
+      `${project},${ad.replace(/[\[\]']/g, '')},${label},${fragments}`
+    )
+  })
+
+  return result
+}
+
 export function exportAsExcel (data) {
-  const workbook = XLSX.utils.book_new();
+  const workbook = XLSX.utils.book_new()
 
   data.map(project => {
     const formattedData = listToDict(project)
@@ -44,5 +61,27 @@ export function exportAsExcel (data) {
     XLSX.utils.book_append_sheet(workbook, worksheet, project[0])
   })
 
-  XLSX.writeFile(workbook, 'data.xlsx');
+  XLSX.writeFile(workbook, 'data.xlsx')
+}
+
+export function exportAsCSV (data) {
+  var csv = "Project,Astrinomical Diaries,Label,Fragments"
+
+  data.map(project => {
+    const formattedData = listToCSV(project)
+    
+    csv = [
+      csv,
+      ...formattedData
+    ].join("\n")
+  })
+
+  const blob = new Blob([csv], { type: 'text/csv' })
+  const url = URL.createObjectURL(blob)
+
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'data.csv'
+  a.click()
+  URL.revokeObjectURL(url)
 }
